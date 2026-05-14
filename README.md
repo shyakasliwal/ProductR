@@ -1,57 +1,61 @@
-# Productr - MERN OTP Authentication
+# Productr (Assignment)
+
+UI and flows follow the design spec:
+
+**[Assignment — Figma](https://www.figma.com/design/jz1CdCk9aaW5itU99sC6uB/Assignment-_Dev?node-id=1-770)**
+
+This repository is a **MERN-style** app (React + Vite frontend, Node + Express + MongoDB backend). It is **not** a Docker / Nginx / MySQL three-tier demo.
 
 ## Project structure
 
-- **`backend/`** – Node.js + Express + MongoDB API (OTP send/verify, JWT)
-- **`frontend/`** – React + Vite + Tailwind UI (login with OTP)
-- **`public/`** – Root static assets (legacy; frontend uses `frontend/public/`)
+- **`backend/`** – Express API (OTP auth, JWT, products)
+- **`frontend/`** – React + Vite + Tailwind UI
 
 ## Setup
 
-### 1. Backend
+### Backend
 
 ```bash
 cd backend
 npm install
 ```
 
-Create `backend/.env` (copy from `.env.example`):
+Copy `backend/.env.example` to `backend/.env` and fill in values:
 
-```
-MONGODB_URI=mongodb+srv://...
-SMTP_EMAIL=your@gmail.com
-SMTP_PASSWORD=your_gmail_app_password
-JWT_SECRET=your_secret
-PORT=5000
-```
+- **`MONGODB_URI`** – MongoDB connection string (local or Atlas)
+- **`SMTP_EMAIL`**, **`SMTP_PASSWORD`** – Gmail + [App Password](https://myaccount.google.com/apppasswords) for sending OTP
+- **`JWT_SECRET`** – secret for signing JWTs
+- **`PORT`** – API port (default `5000`)
 
-**Note:** Use a Gmail App Password (not your normal password). Enable 2FA and create one at https://myaccount.google.com/apppasswords
-
-### 2. Frontend
+### Frontend
 
 ```bash
 cd frontend
 npm install
 ```
+
+Optional: copy `frontend/.env.example` to `frontend/.env` if you need a custom API base URL or Cloudinary keys for product images.
 
 ## Run
 
-**Terminal 1 – Backend:**
+**Terminal 1 – backend**
+
 ```bash
 cd backend
 npm run dev
 ```
 
-**Terminal 2 – Frontend:**
+**Terminal 2 – frontend**
+
 ```bash
 cd frontend
 npm run dev
 ```
 
-- Frontend: http://localhost:5173 (or 5174 if 5173 is in use)
-- Backend API: http://localhost:5000
+- App: http://localhost:5173 (or the next free port)
+- API: http://localhost:5000
 
 ## Flow
 
-1. Enter email → click **Send OTP** → OTP sent via Gmail
-2. Enter 6-digit OTP → click **Verify OTP** → JWT stored in `localStorage`
+1. Enter email → **Send OTP** → code sent via Gmail
+2. Enter OTP → **Verify OTP** → JWT stored; dashboard and products routes are protected
