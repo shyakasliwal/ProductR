@@ -14,6 +14,7 @@ const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:5174',
   'https://shop-application-phi.vercel.app',
+  'https://product-r.vercel.app/login',
 ];
 app.use(
   cors({
